@@ -1,5 +1,19 @@
-<div> <%= render 'wikis/form' %></div>
+<div class="row">
+  <b>Title</b><p><%= @wiki.title %></p>
+</div>
 
+<div class="row">
+  <b>Content</b><p><%= @wiki.body %></p>
+</div>
+
+<div class="row">
+  <b>Created by</b><p><%= @wiki.user_id%></p>
+</div>
+
+
+<div class="row">
+<div><%= button_to "Edit", edit_wiki_path, :method => :get, class: 'btn btn' %></div>
+</div>
 
 <div class="spaceman">
   <hr>

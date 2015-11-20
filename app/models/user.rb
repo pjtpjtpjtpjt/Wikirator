@@ -3,7 +3,15 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
+     
+      enum role: [:standard, :premium, :admin] 
+      
+  before_save { self.role ||= :standard }
+
          
   has_many :wikis
   
+ 
+  
+
 end

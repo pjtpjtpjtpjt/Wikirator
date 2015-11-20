@@ -11,9 +11,9 @@ def create
     end
 end
 
-# def new
-#   #@wiki = Wiki.new
-# end
+def edit
+  @wiki = Wiki.find(params[:id])
+end
 
 
 def show
@@ -27,8 +27,9 @@ end
 
 
 def update
-   @wiki = Wiki.find(params[:id])
-   if @wiki.update_attributes(wiki_params)
+    @wiki = Wiki.find(params[:id])
+    authorize @wiki
+    if @wiki.update_attributes(wiki_params)
        
     redirect_to @wiki, notice: "Wiki was updated successfully."
     else
