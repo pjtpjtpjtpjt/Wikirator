@@ -6,6 +6,9 @@
     
     <%= form_for [Wiki.new] do |f| %>
         
+        
+    
+        
         <div class="form-group">
             <%= f.label :title %>
             <%= f.text_field :title, class: 'form-control', placeholder: "Enter title for your Wiki" %>
@@ -16,8 +19,12 @@
         
         <div class="form-group">
           <label class="checkbox" for="checkbox">
-            <%= f.label :private, class: 'checkbox' do %>
-                <%= f.check_box :private %> Private Wiki
+              
+            <% if current_user.role == "admin"|| current_user.role == "premium" then %>
+                <%= f.label :private, class: 'checkbox' do %>
+                  <%= f.check_box :private %> Private Wiki
+                <% end %>
+                <% else %>
             <% end %>
     
           </label>
@@ -44,9 +51,12 @@
         
         <div class="form-group">
           <label class="checkbox" for="checkbox">
-            <%= f.label :private, class: 'checkbox' do %>
-                <%= f.check_box :private %> Private Wiki
-           <% end %>
+            <% if current_user.role == "admin"|| current_user.role == "premium" then %>
+                <%= f.label :private, class: 'checkbox' do %>
+                  <%= f.check_box :private %> Private Wiki
+                <% end %>
+                <% else %>
+            <% end %>
           </label>
         </div>
     

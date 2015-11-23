@@ -6,6 +6,13 @@
   <b>Content</b><p><%= @wiki.body %></p>
 </div>
 
+
+<% if @wiki.private == true then is_private = "Private Wiki" else is_private = "Public Wiki" end %>
+<div class="row">
+  <b>Wiki status</b><p><%= is_private %></p>
+</div>
+
+
 <div class="row">
   <b>Created by</b><p><%= @wiki.user_id%></p>
 </div>
