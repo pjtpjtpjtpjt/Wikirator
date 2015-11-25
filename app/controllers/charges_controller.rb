@@ -26,7 +26,7 @@ Stripe.api_key = ENV['STRIPE_SECRET_KEY']
  
    flash[:notice] = "Thank you #{current_user.email}. Enjoy Wikirator premium!"
   
-    current_user.update(role: "premium")
+    current_user.premium!
  
    redirect_to root_path
  

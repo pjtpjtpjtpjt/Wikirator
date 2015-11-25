@@ -23,7 +23,7 @@ require 'faker'
      body: Faker::Lorem.paragraph,
     created_at: Faker::Time.between(2.days.ago, Time.now),
      updated_at: Faker::Time.between(2.days.ago, Time.now),
-     private: false
+     private: [true,false].sample
    )
  end
       

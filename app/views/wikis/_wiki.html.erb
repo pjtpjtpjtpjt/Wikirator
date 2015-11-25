@@ -1,5 +1,6 @@
-<% if wiki.private == true then is_private = " -- Private Wiki" else end %>
-<div><%= link_to wiki.title, wiki %> <%= is_private %><br></div>
+<% if wiki.private == true then is_private = " -- Private!" else end %>
+
+<div><%= if wiki.user_id == current_user.id then "My Wiki" end %>  <%= link_to wiki.title, wiki %> <%= is_private %><br></div>
 
 
    

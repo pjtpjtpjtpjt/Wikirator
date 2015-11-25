@@ -22,7 +22,11 @@ end
 
 
 def index
-  @wikis = Wiki.all
+  if current_user.role == "premium" || current_user.role == "admin" then
+    @wikis = Wiki.all
+  else
+    @wikis = Wiki.where private: false 
+  end
 end
 
 
