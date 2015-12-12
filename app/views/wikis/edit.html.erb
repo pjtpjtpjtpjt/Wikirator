@@ -1,18 +1,13 @@
+<div class="row">
+<div> <%= render 'wikis/form' %></div>
 
-<% if @wiki.private == true && current_user.role == "standard" then %>
-  <h2>This is a Private wiki.  If you want to view and create Private Wikis you should </h2><h2><%= link_to 'Go Premium!', new_charge_path %></h2>
-  <div><%= link_to 'Home', root_path %></div>
-<% else %>
-    <div class="row">
-        
-    <div> <%= render 'wikis/form' %></div>
-    </div>
-    
-    <div class="spaceman">
-      <hr>
-      <div id="main_links">
-       <div><%= link_to 'Wiki list', wikis_path %></div>
-       <div><%= link_to 'Home', root_path %></div>
-      </div>
-    </div>
-<% end %>
+
+<div class="spaceman">
+  <hr>
+  <div id="main_links">
+   <div><%= link_to 'Wiki list', wikis_path %></div>
+   <div><%= link_to 'Home', root_path %></div>
+  </div>
+</div>
+
+</div>

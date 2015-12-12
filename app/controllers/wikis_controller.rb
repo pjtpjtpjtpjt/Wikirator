@@ -2,7 +2,7 @@ class WikisController < ApplicationController
 
 def create
     @wiki = current_user.wikis.new(wiki_params)
-
+    
     if @wiki.save
     redirect_to @wiki, notice: "Wiki was saved successfully."
     else
@@ -22,18 +22,17 @@ end
 
 
 def index
-  if current_user.role == "premium" || current_user.role == "admin" then
-    @wikis = Wiki.all
-  else
-    @wikis = Wiki.where private: false 
-  end
+  @wikis = policy_scope(Wiki)
 end
 
 
 def update
     @wiki = Wiki.find(params[:id])
+   
     authorize @wiki
+    
     if @wiki.update_attributes(wiki_params)
+  
        
     redirect_to @wiki, notice: "Wiki was updated successfully."
     else
@@ -54,14 +53,16 @@ def destroy
      else
        flash[:error] = "There was an error deleting the wiki."
        render :show
-     end
+  end
     
 end
 
 private
 
 def wiki_params
+    
 params.require(:wiki).permit(:title, :body, :private)
+
 end
 
 end

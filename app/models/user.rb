@@ -11,9 +11,10 @@ class User < ActiveRecord::Base
       
   before_save { self.role ||= :standard }
 
-         
-  has_many :wikis
   
+  
+  has_many :collaborators
+  has_many :wikis
 
 
 end

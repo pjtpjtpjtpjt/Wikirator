@@ -1,15 +1,19 @@
 Rails.application.routes.draw do
   
-  #MarkdownExample::Application.routes.draw do
-  
+
   get 'users/show'
   root 'users#show'
   
   devise_for :users
   
-  resources :wikis
+  resources :wikis do
+     resources :collaborators, only: [:index, :create, :destroy]
+  end
   
-  resources :users, only: [:show, :update]
+ 
+  
+  resources :users, only: [:show, :update] 
+    
   
   resources :charges, only: [:new, :create]
 #end
