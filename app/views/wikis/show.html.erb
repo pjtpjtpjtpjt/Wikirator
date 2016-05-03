@@ -1,0 +1,55 @@
+
+<% if @wiki.private == false || @wiki.private == true && @wiki.users.include?(current_user) || @wiki.user == current_user %>
+    <div class="row">
+      <b>Title</b><p><%= @wiki.title %></p>
+    </div>
+    
+    <div class="row">
+      <b>Content</b><p><%= markdown(@wiki.body) %></p>
+    </div>
+    
+    
+    <div class="row">
+      <b>Created by</b><p><%= @wiki.user.email%></p>
+    </div>
+    
+    <% if @wiki.private == true then is_private = "Private Wiki" else is_private = "Public Wiki" end %>
+    <div class="row">
+      <b>Wiki status</b><p><%= is_private %></p>
+    </div>
+    
+    
+    <div class="row">
+      <div><%= button_to "Edit", edit_wiki_path, :method => :get, class: 'btn btn' %></div>
+    <br>
+    </div>
+       
+    <% if @wiki.private == true %>
+      <div class="row">
+      <div><b>Collaborators</b></div>
+      <div>
+      <%= link_to "Manage Collaborators", wiki_collaborators_path(@wiki), class: "btn btn-success" %>
+      </div>
+      </div>
+    <% else %>
+    <% end %>
+    
+<% else %>
+
+    <% if @wiki.private == true && current_user.role == "standard" then %>
+      <div class="row">
+      <h3>This is a Private wiki. If you want to create Private Wikis yourself remember to <%= link_to 'Go Premium!', new_charge_path %></h3>
+      </div>
+    <% end %>
+
+<% end %>
+
+
+<div class="spaceman">
+  <hr>
+  <div id="main_links">
+    <div><%= link_to 'Wiki list', wikis_path %></div>
+    <div><%= link_to 'Home', root_path %></div>
+    </div>
+</div>
+

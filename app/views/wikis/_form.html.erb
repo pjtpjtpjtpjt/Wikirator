@@ -1,0 +1,84 @@
+<% if @wiki == nil then %>
+
+    <div><h2>Create a new Wiki</h2></div>
+    
+    <%= form_for [Wiki.new] do |f| %>
+        
+        <div class="form-group">
+            <%= f.label :title %>
+            <%= f.text_field :title, class: 'form-control', placeholder: "Enter title for your Wiki" %>
+      
+            <%= f.label :content %>
+            <%= f.text_area :body, class: 'form-control', placeholder: "Create content for your Wiki" %>
+         </div>
+        
+        <div class="form-group">
+          <label class="checkbox" for="checkbox">
+              
+            <% if current_user.role == "admin"|| current_user.role == "premium" then %>
+                <%= f.label :private, class: 'checkbox' do %>
+                  <%= f.check_box :private %> Private Wiki
+                <% end %>
+                <% else %>
+            <% end %>
+          </label>
+        </div>
+        
+        <div class="form-group">
+        <%= f.submit "Save", class: 'btn btn-success' %>
+        </div>
+<% end %>
+    
+<% else %>
+    
+    <% if @wiki.private == false || @wiki.private == true && @wiki.users.include?(current_user) || @wiki.user == current_user %>
+    <%= form_for [@wiki] do |f| %>
+        <div class="form-group">
+            <%= f.label :title %>
+            <%= f.text_field :title, class: 'form-control', placeholder: @wiki.title %>
+      
+            <%= f.label :content %>
+            <%= f.text_area :body, class: 'form-control', placeholder: @wiki.body %>
+        
+          <b>Created by</b><p><%= @wiki.user.email%></p> 
+        
+        
+        <b>Wiki status</b>
+        <div class="form-group">
+          <label class="checkbox" for="checkbox">
+            <% if current_user.role == "admin"|| current_user.role == "premium" then %>
+                <%= f.label :private, class: 'checkbox' do %>
+                  <%= f.check_box :private %> Private Wiki
+                <% end %>
+                <% else %>
+            <% end %>
+          </label>
+        </div>
+       
+        
+          <div class="form-group">
+            <%= f.submit "Update", class: 'btn btn-success' %>
+            <%= link_to 'Delete', @wiki, method: :delete, class: 'btn btn-danger' %>
+          <% end %>
+        </div>
+        
+        <% else %>
+        
+        <% if @wiki.private == true && current_user.role == "standard" then %>
+          <div class="row">
+          <h3>This is a Private wiki. If you want to create Private Wikis yourself remember to <%= link_to 'Go Premium!', new_charge_path %></h3>
+          </div>
+        <% end %>
+        
+        
+    <% end %>
+<% end %>
+
+
+
+
+
+    
+ 
+    
+

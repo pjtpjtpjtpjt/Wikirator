@@ -1,0 +1,49 @@
+<h1>Wikirator</h1>
+
+<% if user_signed_in? %>
+  <div class="row">
+  <div class="col-md-11">
+  </div>
+  <div class="col-md-1">
+    <small><%= link_to('Logout', destroy_user_session_path) %></small>
+  </div>
+  </div>
+      
+    
+  <div class="jumbotron">
+    <h2>Hello <%= current_user.email %>. Welcome!</h2><% if current_user.role == "admin" then %><br><h6>I rock. I am admin!</h6><% end %>
+  </div>
+  
+  
+  <div class="row">
+    <div class="col-md-6">
+      <%= render partial: 'wikis/form'%>
+    </div>
+    
+    <div class="col-md-2">
+      <div id="main_links">
+      <h2><%= link_to "View Wikis", wikis_path %></h2>
+      </div>
+    </div>
+    
+    <div class="col-md-3">
+      <div id="main_links">
+        <% if current_user.role == "standard" then %>
+          <h2><%= link_to 'Go Premium!', new_charge_path %></h2>
+          <% else %>
+         <h2><%= link_to 'Downgrade :(', current_user, :method => :put, data: {confirm: 'Are you sure you want to downgrade?'} %></h2>
+         <h5>If you choose to downgrade, all your private Wikis will be become public. We're just sayin'. </h5>
+        <% end %>
+      </div>
+     </div>
+  </div>
+  
+
+<% else %>
+  <div class="col-md-1">
+  <small> <%= link_to('Login', new_user_session_path)  %> </small>
+  </div>
+  </div>
+
+<% end %>
+
